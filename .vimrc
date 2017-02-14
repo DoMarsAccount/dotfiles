@@ -26,6 +26,9 @@ Plugin 'bling/vim-airline'
 Plugin 'valloric/youcompleteme'
 " Plugin from http://vimawesome.com/plugin/youcompleteme
 
+Plugin 'airblade/vim-gitgutter'
+" Plugin from http://vimawesome.com/plugi/vim-gitgutter
+
 Plugin 'tomasr/molokai'
 " plugin from http://vimawesome.com/plugin/molokai
 
