@@ -6,4 +6,4 @@ Truly nothing that special. Just run the .install.sh script to install the items
 + .bashrc
 + .vimrc
 + .tmux.conf
-+ .fScripts **a directory**
++ .fScripts **(a directory)**
