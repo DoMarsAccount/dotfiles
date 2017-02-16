@@ -7,7 +7,7 @@
  ######## Variables
 dir=~/dotfiles
 olddir=~/dotfiles_old
-files=".bashrc .vimrc .tmux.conf" # list of files/folders to symlink in homedir
+files=".bashrc .vimrc .tmux.conf .fScripts" # list of files/folders to symlink in homedir
 
 ########
 
