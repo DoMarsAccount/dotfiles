@@ -5,17 +5,23 @@
 ###################
 
 usage() { printf "%s" "\
-Why?: Install the files I find most vital to working on any system.
 
 Flags:
-  -n                      Install on a new machine/ distro 
-  -m                      Install macOS specific software
-  -l                      Install w/ special options for 
-                            the UT Learning Lab
+
+:[dotfiles]
+  -n                      Install dotfiles on a [NEW] machine/ distro 
+  -l                      Install dotfiles on [NEW] devices with [no root access] 
+
+  -r                      Install & [backup existing] dotfiles
+  -i                      Install & [remove existing] dotfiles
+
+:[Extras]
+  -m                      Install macOS specific software (iTerm2, macvim, homebrew)
+  -z                      Install oh-my-zsh & E Corp terminal theme
   -x                      Remove the backup of existing dotfiles
-  -i                      Install w/o backing up existing dotfiles
-  -r                      Install & backup existing (responsible)
-  -h                      You're looking at it
+
+  -h                      The help page you're looking at
+
 "
 }
 
@@ -67,6 +73,11 @@ nonSudoItems() {
 
 macOnlyItems() {
 
+    # install homebrew
+    # echo "Installing homebrew..." >&2
+    # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
+    # echo "Homebrew installation complete." >&2
+
     # install macvim
     git clone https://github.com/macvim-dev/macvim.git ~/Desktop
 
@@ -76,20 +87,37 @@ macOnlyItems() {
     # cd ~/Desktop/macvim
     # make install
 
-    # cd ../iterm2
-    # make install
+    echo "Installing iTerm2..."
+    cd ../iterm2
+    make install
+
+}
+
+setupZsh() {
+
+    echo "Installing oh-my-zsh..."
+    # install oh-my-zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+    # install E Corp terminal theme
+    git clone https://github.com/marcorosa/eterm.git
+    cd eterm
+    mkdir $ZSH/custom/themes
+    cp eterm.zsh-theme $ZSH/custom/themes/
+
+    echo "To setup the E Corp theme, add \"ZSH_THEME=\"eterm\"\" to your 
+    .zshrc file"
 
 }
 
 get_args() {
-    while getopts ":lxhirnm" opt; do
+    while getopts ":lxhirnmz" opt; do
         case $opt in
             h) usage; exit 1 ;;
             l)
-                echo "Installing homebrew..." >&2
-                /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
-
-                echo "Homebrew installation complete." >&2
+                nonSudoItems;
+                basicInstall;
+                exit 1
                 ;;
             x)
                 echo "Removing $olddir..." >&2
@@ -104,6 +132,7 @@ get_args() {
                 ;;
             m)
                 echo "" >&2
+                echo "Installing macOS specific items..." >&2
                 macOnlyItems;
                 exit 1
                 ;;
@@ -120,6 +149,11 @@ get_args() {
                 echo "Running responsible installation..." >&2
                 saveOldFiles;
                 basicInstall;
+                exit 1
+                ;;
+            "z")
+                echo "" >&2
+                setupZsh;
                 exit 1
                 ;;
         esac
