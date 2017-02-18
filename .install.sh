@@ -9,14 +9,14 @@ usage() { printf "%s" "\
 Flags:
 
 :[dotfiles]
-  -n                      Install dotfiles on a [NEW] machine/ distro 
-  -l                      Install dotfiles on [NEW] devices with [no root access] 
+  -n                      Install dotfiles on a [NEW] machine/ distro
+  -l                      Install dotfiles on [NEW] devices with [no root access]
 
   -r                      Install & [backup existing] dotfiles
   -i                      Install & [remove existing] dotfiles
 
 :[Extras]
-  -m                      Install macOS specific software (iTerm2, macvim, homebrew)
+  -m                      Install macOS specific software (atom, iTerm2, macvim)
   -z                      Install oh-my-zsh & E Corp terminal theme
   -x                      Remove the backup of existing dotfiles
 
@@ -75,8 +75,13 @@ macOnlyItems() {
 
     # install homebrew
     # echo "Installing homebrew..." >&2
-    # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
+    # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     # echo "Homebrew installation complete." >&2
+
+    # install atom
+    git clone https://github.com/atom/atom.git
+    cd atom
+    script/build --install
 
     # install macvim
     git clone https://github.com/macvim-dev/macvim.git ~/Desktop
@@ -105,7 +110,7 @@ setupZsh() {
     mkdir $ZSH/custom/themes
     cp eterm.zsh-theme $ZSH/custom/themes/
 
-    echo "To setup the E Corp theme, add \"ZSH_THEME=\"eterm\"\" to your 
+    echo "To setup the E Corp theme, add \"ZSH_THEME=\"eterm\"\" to your
     .zshrc file"
 
 }
@@ -136,10 +141,10 @@ get_args() {
                 macOnlyItems;
                 exit 1
                 ;;
-            i) 
+            i)
                 echo "" >&2
-                basicInstall; 
-                exit 1 
+                basicInstall;
+                exit 1
                 ;;
             "?")
                 echo "Invalid option: -$OPTARG" >&2
