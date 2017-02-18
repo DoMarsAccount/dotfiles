@@ -4,6 +4,12 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ###################
 
+######## Variables
+dir=~/dotfiles
+olddir=~/dotfiles_old
+files=".bashrc .vimrc .tmux.conf .fScripts" # list of files/folders to symlink in homedir
+
+######## Functions
 usage() { printf "%s" "\
 
 Flags:
@@ -25,12 +31,6 @@ Flags:
 "
 }
 
- ######## Variables
-dir=~/dotfiles
-olddir=~/dotfiles_old
-files=".bashrc .vimrc .tmux.conf .fScripts" # list of files/folders to symlink in homedir
-
-########
 saveOldFiles() {
     # create dotfiles_old in homedir
     echo "=============================================="
@@ -47,6 +47,9 @@ saveOldFiles() {
 
 basicInstall() {
 
+    # install Vundle
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
     # change to the dotfiles directory
     echo "Changing to the $dir directory"
     cd $dir
@@ -62,13 +65,6 @@ basicInstall() {
     done
 
     echo "dotfile installation complete."
-}
-
-nonSudoItems() {
-
-    # install Vundle
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
 }
 
 macOnlyItems() {
@@ -120,7 +116,6 @@ get_args() {
         case $opt in
             h) usage; exit 1 ;;
             l)
-                nonSudoItems;
                 basicInstall;
                 exit 1
                 ;;
@@ -131,7 +126,6 @@ get_args() {
                 ;;
             n)
                 echo "" >&2
-                nonSudoItems;
                 basicInstall;
                 exit 1
                 ;;
