@@ -21,5 +21,3 @@ export PATH
 
 # Import colorscheme from 'wal'
 #(wal -r &)
-
-

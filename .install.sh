@@ -67,6 +67,15 @@ basicInstall() {
     echo "dotfile installation complete."
 }
 
+nonSudoItems() {
+
+    # install homebrew w/o root access
+    cd ~/
+    mkdir homebrew
+    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+
+}
+
 macOnlyItems() {
 
     # install homebrew
