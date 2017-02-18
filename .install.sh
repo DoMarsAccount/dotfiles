@@ -125,6 +125,7 @@ get_args() {
         case $opt in
             h) usage; exit 1 ;;
             l)
+                nonSudoItems;
                 basicInstall;
                 exit 1
                 ;;
