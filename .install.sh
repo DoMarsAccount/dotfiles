@@ -46,6 +46,8 @@ saveOldFiles() {
 }
 
 basicInstall() {
+    # just to make sure
+    cd ~/
 
     # install Vundle
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -72,18 +74,21 @@ nonSudoItems() {
     # install homebrew w/o root access
     cd ~/
     mkdir homebrew
-    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+    curl -L https://github.com/Homebrew/brew/tarball/master
+    tar xz --strip 1 -C homebrew
 
 }
 
 macOnlyItems() {
 
+    # if root
     # install homebrew
     # echo "Installing homebrew..." >&2
     # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     # echo "Homebrew installation complete." >&2
 
     # install atom
+    #curl -O https://github.com/at/releases/download/v1.14.3/atom-mac.zip
     cd ~/Desktop
     git clone https://github.com/atom/atom.git
     cd atom
@@ -100,13 +105,13 @@ macOnlyItems() {
     # cd ~/Desktop/macvim
     # make install
 
-    cd ~/Desktop
+    cd ~/Desktop/iTerm2
     echo "Installing iTerm2..."
-    cd ../iTerm2
     make install
 
 }
 
+# works with or w/o root access
 setupZsh() {
 
     echo "Installing oh-my-zsh..."
@@ -116,7 +121,7 @@ setupZsh() {
     # install E Corp terminal theme
     git clone https://github.com/marcorosa/eterm.git
     cd eterm
-    mkdir $ZSH/custom/themes
+    mkdir -p $ZSH/custom/themes
     cp eterm.zsh-theme $ZSH/custom/themes/
 
     echo "To setup the E Corp theme, add \"ZSH_THEME=\"eterm\"\" to your
