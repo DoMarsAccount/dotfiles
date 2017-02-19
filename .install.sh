@@ -142,7 +142,7 @@ setupZsh() {
 }
 
 get_args() {
-    while getopts ":lxhirnmz" opt; do
+    while getopts ":Llxhirnmz" opt; do
         case $opt in
             h) usage; exit 1 ;;
             l)
