@@ -8,7 +8,7 @@
 dir=~/dotfiles
 olddir=~/dotfiles_old
 files=".bashrc .vimrc .tmux.conf .fScripts" # list of files/folders to symlink in homedir
-
+nonSudoFile=~/domars_apps
 ######## Functions
 usage() { printf "%s" "\
 
@@ -84,21 +84,25 @@ macOnlyItems() {
     # echo "Homebrew installation complete." >&2
 
     # install atom
+    cd ~/Desktop
     git clone https://github.com/atom/atom.git
     cd atom
     script/build --install
 
     # install macvim
+    cd ~/Desktop
     git clone https://github.com/macvim-dev/macvim.git ~/Desktop
 
     # install iTerm2
+    cd ~/Desktop
     git clone https://github.com/gnachman/iTerm2.git
 
     # cd ~/Desktop/macvim
     # make install
 
+    cd ~/Desktop
     echo "Installing iTerm2..."
-    cd ../iterm2
+    cd ../iTerm2
     make install
 
 }
