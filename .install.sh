@@ -23,6 +23,7 @@ Flags:
 
 :[Extras]
   -m                      Install macOS specific software (atom, iTerm2, macvim)
+  -L                      Open webpages and manual install atom and iTerm (UT Media Lab)
   -z                      Install oh-my-zsh & E Corp terminal theme
   -x                      Remove the backup of existing dotfiles
 
@@ -74,8 +75,17 @@ nonSudoItems() {
     # install homebrew w/o root access
     cd ~/
     mkdir homebrew
-    curl -L https://github.com/Homebrew/brew/tarball/master
-    tar xz --strip 1 -C homebrew
+    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+
+}
+
+takeTheL() {
+    
+    # open the iTerm2 webpage
+    open "https://www.iterm2.com/downloads.html"
+
+    # open atom webpage
+    open "https://atom.io"
 
 }
 
@@ -113,14 +123,16 @@ macOnlyItems() {
 # works with or w/o root access
 setupZsh() {
 
-    cd ~/
-    echo "Installing oh-my-zsh..."
-    # install oh-my-zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-    # install E Corp terminal theme
+     # install E Corp terminal theme
     git clone https://github.com/marcorosa/eterm.git
     cd eterm
+
+    cd ~/
+    echo "Installing oh-my-zsh..."
+    # need to install oh-my-zsh here
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    
+    # finish installing E Corp terminal theme
     mkdir -p $ZSH/custom/themes
     cp eterm.zsh-theme $ZSH/custom/themes/
 
@@ -172,6 +184,12 @@ get_args() {
             "z")
                 echo "" >&2
                 setupZsh;
+                exit 1
+                ;;
+
+            "L")
+                echo "" >&2
+                takeTheL;
                 exit 1
                 ;;
         esac
