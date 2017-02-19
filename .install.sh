@@ -88,7 +88,6 @@ macOnlyItems() {
     # echo "Homebrew installation complete." >&2
 
     # install atom
-    #curl -O https://github.com/at/releases/download/v1.14.3/atom-mac.zip
     cd ~/Desktop
     git clone https://github.com/atom/atom.git
     cd atom
@@ -114,6 +113,7 @@ macOnlyItems() {
 # works with or w/o root access
 setupZsh() {
 
+    cd ~/
     echo "Installing oh-my-zsh..."
     # install oh-my-zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
