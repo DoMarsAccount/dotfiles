@@ -142,6 +142,10 @@ installECorpTheme(){
     
     # replaces the current theme with eterm
     cat ~/.zshrc | sed -i '' 's/.*ZSH_THEME.*/ZSH_THEME=\"eterm\"/' ~/.zshrc
+
+    # remove the eterm file
+    rm -frd ../eterm
+
 }
 
 get_args() {
