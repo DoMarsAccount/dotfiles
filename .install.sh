@@ -24,7 +24,8 @@ Flags:
 :[Extras]
   -m                      Install macOS specific software (atom, iTerm2, macvim)
   -L                      Open webpages and manual install atom and iTerm (UT Media Lab)
-  -z                      Install oh-my-zsh & E Corp terminal theme
+  -z                      Install oh-my-zsh
+  -E                      Install E Corp terminal theme (zsh must be running!)
   -x                      Remove the backup of existing dotfiles
 
   -h                      The help page you're looking at
@@ -123,26 +124,28 @@ macOnlyItems() {
 # works with or w/o root access
 setupZsh() {
 
-     # install E Corp terminal theme
-    git clone https://github.com/marcorosa/eterm.git
-    cd eterm
-
     cd ~/
     echo "Installing oh-my-zsh..."
     # need to install oh-my-zsh here
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     
-    # finish installing E Corp terminal theme
+}
+
+installECorpTheme(){
+
+     # install E Corp terminal theme
+    git clone https://github.com/marcorosa/eterm.git
+    cd eterm 
     mkdir -p $ZSH/custom/themes
     cp eterm.zsh-theme $ZSH/custom/themes/
-
-    echo "To setup the E Corp theme, add \"ZSH_THEME=\"eterm\"\" to your
-    .zshrc file"
+    
+    # replaces the current theme with eterm
+    cat .zshrc | sed -i 's/.*ZSH_THEME.*/ZSH_THEME=\"eterm\"/' /~/.zshrc
 
 }
 
 get_args() {
-    while getopts ":Llxhirnmz" opt; do
+    while getopts ":LlxhirnmzE" opt; do
         case $opt in
             h) usage; exit 1 ;;
             l)
@@ -186,7 +189,11 @@ get_args() {
                 setupZsh;
                 exit 1
                 ;;
-
+            "E")
+                echo "" >&2
+                installECorpTheme;
+                exit 1
+                ;;
             "L")
                 echo "" >&2
                 takeTheL;
