@@ -11,6 +11,13 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'scrooloose/nerdtree'
+" plugin from http://vimawesome.com/plugin/nerdtree-red
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+" plugin from https://github.com/Xuyuanp/nerdtree-git-plugin
+" automatically open NERDTree
+" autocmd vimenter * NERDTree
+"
 Plugin 'scrooloose/nerdcommenter'
 " plugin from http://vimawesome.com/plugin/the-nerd-commenter
 " per request of nerdcommenter
@@ -66,7 +73,7 @@ set guifont=System\ San\ Francisco\ Display:h18
 
 " for theming vim past the default macOS terminal theming
 syntax enable
-colorscheme molokai
+"colorscheme molokai
 let g:molokai_original = 1
 
 if !has("gui_running")
@@ -80,3 +87,10 @@ set expandtab
 set shiftwidth=4
 
 set laststatus=2
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
